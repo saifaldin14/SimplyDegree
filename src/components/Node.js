@@ -68,7 +68,7 @@ const Node = () => {
           name="title"
         />
         <button type="button" onClick={addNode}>
-          Add Node
+          Add New Node
         </button>
       </div>
     </Fragment>
