@@ -8,7 +8,7 @@ function SignIn() {
     return (
         <>
         <img src={MainLogo} alt="main-logo" className="logo"/>
-        
+
         <div className="graphics">
             <img src={StudentDesk} alt="student-desk"/>
             <img src={StudentBook} alt="student-book"/>
@@ -16,7 +16,7 @@ function SignIn() {
 
         <div className="login-button">
             <h1>
-            Login
+            Log In
             </h1>
         </div>
         </>

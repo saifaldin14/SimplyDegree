@@ -26,5 +26,18 @@
     text-align: center;
     position: relative;
     top: 50%;
-    transform: translateY(-55%)
+    transform: translateY(-55%);
+    background: linear-gradient(to right, rgb(255, 255, 255) 50%, #c1f2f8 70%, #3a87fa);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.5s ease-out;
+}
+
+.login-button h1:hover {
+    background-position: -100%;
+}
+
+.login-button:hover {
+    cursor: pointer;
 }
