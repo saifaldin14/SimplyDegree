@@ -10,8 +10,8 @@ function SignIn() {
         <img src={MainLogo} alt="main-logo" className="logo"/>
 
         <div className="graphics">
-            <img src={StudentDesk} alt="student-desk"/>
-            <img src={StudentBook} alt="student-book"/>
+            <img src={StudentDesk} alt="student-desk" className="student"/>
+            <img src={StudentBook} alt="student-book" className="student"/>
         </div>
 
         <div className="login-button">

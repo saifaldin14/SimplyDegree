@@ -41,3 +41,21 @@
 .login-button:hover {
     cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+    .logo {
+        height: 50px;
+    }
+    .student {
+        height: 100px;
+    }
+    .graphics {
+        width: 400px;
+        margin-bottom: 100px;
+    }
+    .login-button {
+        height: 70px;
+        font-size: 24px;
+        width: 150px;
+    }
+}
