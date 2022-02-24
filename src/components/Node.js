@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 
-import ReactFlow, { removeElements, addEdge } from "react-flow-renderer";
-
-const onLoad = (reactFlowInstance) => reactFlowInstance.fitView();
-
-const onNodeMouseEnter = (event, node) => console.log("mouse enter:", node);
-const onNodeMouseMove = (event, node) => console.log("mouse move:", node);
-const onNodeMouseLeave = (event, node) => console.log("mouse leave:", node);
-const onNodeContextMenu = (event, node) => {
-  event.preventDefault();
-  console.log("context menu:", node);
-};
+import ReactFlow, {
+  addEdge,
+  Background,
+  Controls,
+  MiniMap,
+  removeElements,
+} from "react-flow-renderer";
 
 const initialElements = [
   {
@@ -121,6 +117,16 @@ const initialElements = [
     animated: true,
   },
 ];
+const onLoad = (reactFlowInstance) => {
+  reactFlowInstance.fitView();
+};
+const onNodeMouseEnter = (event, node) => console.log("mouse enter:", node);
+const onNodeMouseMove = (event, node) => console.log("mouse move:", node);
+const onNodeMouseLeave = (event, node) => console.log("mouse leave:", node);
+const onNodeContextMenu = (event, node) => {
+  event.preventDefault();
+  console.log("context menu:", node);
+};
 
 const Node = () => {
   const [elements, setElements] = useState(initialElements);
@@ -139,25 +145,65 @@ const Node = () => {
     );
   };
 
+  const addNode = () => {
+    // setElements((e) =>
+    //   e.concat({
+    //     id: (e.length + 1).toString(),
+    //     data: { label: `${name}` },
+    //     position: {
+    //       x: Math.random() * window.innerWidth,
+    //       y: Math.random() * window.innerHeight,
+    //     },
+    //   })
+    // );
+    console.log("Hi");
+  };
+
   return (
-    <ReactFlow
-      elements={elements}
-      onElementsRemove={onElementsRemove}
-      onConnect={onConnect}
-      onLoad={onLoad}
-      selectNodesOnDrag={false}
-      onNodeMouseEnter={onNodeMouseEnter}
-      onNodeMouseMove={onNodeMouseMove}
-      onNodeMouseLeave={onNodeMouseLeave}
-      onNodeContextMenu={onNodeContextMenu}
-    >
-      <button
-        onClick={changeClassName}
-        style={{ position: "absolute", right: 10, top: 30, zIndex: 4 }}
+    <Fragment>
+      <ReactFlow
+        elements={elements}
+        onLoad={onLoad}
+        style={{ width: "100%", height: "90vh" }}
+        onConnect={onConnect}
+        connectionLineStyle={{ stroke: "#ddd", strokeWidth: 2 }}
+        connectionLineType="bezier"
+        snapToGrid={true}
+        snapGrid={[16, 16]}
+        onElementsRemove={onElementsRemove}
+        onNodeMouseEnter={onNodeMouseEnter}
+        onNodeMouseMove={onNodeMouseMove}
+        onNodeMouseLeave={onNodeMouseLeave}
+        onNodeContextMenu={onNodeContextMenu}
       >
-        change class name
-      </button>
-    </ReactFlow>
+        <Background color="#888" gap={16} />
+        <MiniMap
+          nodeColor={(n) => {
+            if (n.type === "input") return "blue";
+
+            return "#FFCC00";
+          }}
+        />
+        <Controls />
+        <button
+          onClick={changeClassName}
+          style={{ position: "absolute", right: 10, top: 30, zIndex: 4 }}
+        >
+          change class name
+        </button>
+      </ReactFlow>
+
+      <div>
+        {/* <input
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          name="title"
+        /> */}
+        <button type="button" onClick={addNode}>
+          Add New Node
+        </button>
+      </div>
+    </Fragment>
   );
 };
 
