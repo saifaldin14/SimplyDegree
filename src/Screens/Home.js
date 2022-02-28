@@ -47,16 +47,13 @@ const Home = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
+    <div style={{ width: "50%", height: "100%" }}>
+      <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
         <AccordionSummary
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
+          <Typography sx={{ width: "35%", flexShrink: 0 }}>
             Course Graph
           </Typography>
           <Typography sx={{ color: "text.secondary" }}>
@@ -67,17 +64,14 @@ const Home = () => {
           <Node />
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
+      <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
         <AccordionSummary
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Item 2</Typography>
+          <Typography sx={{ width: "35%", flexShrink: 0 }}>Daily Schedule</Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Add this later
+            View your classes for the week
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -88,17 +82,14 @@ const Home = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
+      <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
         <AccordionSummary
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Item 3</Typography>
+          <Typography sx={{ width: "35%", flexShrink: 0 }}>Calendar</Typography>
           <Typography sx={{ color: "text.secondary" }}>
-            Add this later
+            View your due dates
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -108,15 +99,12 @@ const Home = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
+      <Accordion expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
         <AccordionSummary
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Item 4</Typography>
+          <Typography sx={{ width: "35%", flexShrink: 0 }}>Item 4</Typography>
           <Typography sx={{ color: "text.secondary" }}>
             Add this later
           </Typography>
