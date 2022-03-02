@@ -1,5 +1,6 @@
 .logo {
-    margin-top: 150px;
+    margin-top: 5em;
+    margin-bottom: 5em;
 }
 
 .student {
@@ -7,12 +8,11 @@
 }
 
 .graphics {
-    margin-top: 100px;
-    width: 900px;
+    width: 600px;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 150px;
+    margin-bottom: 5em;
 }
 
 .login-button {
@@ -48,10 +48,10 @@
 
 @media screen and (max-width: 600px) {
     .logo {
-        height: 50px;
+        height: 3em;
     }
     .student {
-        height: 100px;
+        height: 8em;
     }
     .graphics {
         width: 400px;
@@ -59,7 +59,7 @@
     }
     .login-button {
         height: 70px;
-        font-size: 24px;
+        font-size: 1.7em;
         width: 150px;
     }
 }
