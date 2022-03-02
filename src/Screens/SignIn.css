@@ -1,5 +1,9 @@
 .logo {
-    margin-top: 170px;
+    margin-top: 150px;
+}
+
+.student {
+    height: 10rem;
 }
 
 .graphics {
@@ -12,12 +16,12 @@
 }
 
 .login-button {
-    height: 100px;
+    height: 5rem;
     background-color: black;
     color: white;
-    width: 220px;
+    width: 10rem;
     border-radius: 30px;
-    font-size: 32px;
+    font-size: 2rem;
     align-self: auto;
     margin: auto;
 }

@@ -9,7 +9,7 @@ function SignIn() {
   let navigate = useNavigate();
   return (
     <>
-      <img src={MainLogo} alt="main-logo" className="logo" />
+      <img src={MainLogo} alt="main-logo" className="logo"/>
 
       <div className="graphics">
         <img src={StudentDesk} alt="student-desk" className="student" />
@@ -19,6 +19,7 @@ function SignIn() {
       <div className="login-button" onClick={() => navigate("/Home")}>
           <h1>Log In</h1>
       </div>
+      
     </>
   );
 }
