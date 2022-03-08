@@ -1,6 +1,6 @@
 .logo {
     margin-top: 5em;
-    margin-bottom: 5em;
+    margin-bottom: 3.4em;
 }
 
 .student {
@@ -12,10 +12,11 @@
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
 
 .login-button {
+    margin-top: 0.8em;
     height: 5rem;
     background-color: black;
     color: white;
@@ -23,7 +24,6 @@
     border-radius: 30px;
     font-size: 2rem;
     align-self: auto;
-    margin: auto;
 }
 
 .login-button h1 {
@@ -43,6 +43,15 @@
 }
 
 .login-button:hover {
+    cursor: pointer;
+}
+
+.sign-up {
+    color: blue;
+    text-decoration: underline;
+}
+
+.signup:hover {
     cursor: pointer;
 }
 
