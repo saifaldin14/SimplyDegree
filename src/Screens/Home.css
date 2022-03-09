@@ -1,0 +1,9 @@
+#Home-Div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  flex-direction: column;
+  gap: 2rem;
+}

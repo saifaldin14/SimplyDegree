@@ -2,97 +2,129 @@ import React from "react";
 import Node from "../components/Node";
 import MonthlyCalendar from "../components/MonthlyCalendar";
 import WeeklyStudyPlan from "../components/WeeklyStudyPlan";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
-import MuiAccordion from "@mui/material/Accordion";
-import Typography from "@mui/material/Typography";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import "./Home.css";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 const Home = () => {
-  const Accordion = styled((props) => (
-    <MuiAccordion disableGutters elevation={0} square {...props} />
-  ))(() => ({
-    "&:before": {
-      display: "none",
-    },
-  }));
+  const [expandedCourses, setExpandedCourses] = React.useState(false);
+  const [expandedWeek, setExpandedWeek] = React.useState(false);
+  const [expandedMonth, setExpandedMonth] = React.useState(false);
 
-  const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
-      {...props}
-    />
-  ))(({ theme }) => ({
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    flexDirection: "row-reverse",
-    "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-      transform: "rotate(90deg)",
-    },
-    "& .MuiAccordionSummary-content": {
-      marginLeft: theme.spacing(1),
-    },
-  }));
-
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(2),
-  }));
-
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleExpandClick = (actionType) => {
+    switch (actionType) {
+      case "course":
+        setExpandedCourses(!expandedCourses);
+        break;
+      case "week":
+        setExpandedWeek(!expandedWeek);
+        break;
+      case "month":
+        setExpandedMonth(!expandedMonth);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
-    <div style={{ width: "50%", height: "100%" }}>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary aria-controls="panel1bh-content" id="panel1bh-header">
-          <Typography sx={{ width: "35%", flexShrink: 0 }}>
-            Course Graph
-          </Typography>
-          <Typography sx={{ color: "text.secondary" }}>
-            View and set your courses
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Node />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary aria-controls="panel2bh-content" id="panel2bh-header">
-          <Typography sx={{ width: "35%", flexShrink: 0 }}>
-            Daily Schedule
-          </Typography>
-          <Typography sx={{ color: "text.secondary" }}>
-            View your classes for the week
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <WeeklyStudyPlan />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <AccordionSummary aria-controls="panel3bh-content" id="panel3bh-header">
-          <Typography sx={{ width: "35%", flexShrink: 0 }}>Calendar</Typography>
-          <Typography sx={{ color: "text.secondary" }}>
-            View your due dates
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MonthlyCalendar />
-        </AccordionDetails>
-      </Accordion>
+    <div id="Home-Div">
+      <Card sx={{ maxWidth: "80%", width: "80%" }}>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title="Course Graph"
+          subheader="View and add courses"
+        />
+        <CardActions disableSpacing>
+          <ExpandMore
+            expand={expandedCourses}
+            onClick={() => handleExpandClick("course")}
+            aria-expanded={expandedCourses}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expandedCourses} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Node />
+          </CardContent>
+        </Collapse>
+      </Card>
+      <Card sx={{ maxWidth: "80%", width: "80%" }}>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title="Weekly Study Plan"
+          subheader="View and add courses"
+        />
+        <CardActions disableSpacing>
+          <ExpandMore
+            expand={expandedWeek}
+            onClick={() => handleExpandClick("week")}
+            aria-expanded={expandedWeek}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expandedWeek} timeout="auto" unmountOnExit>
+          <CardContent>
+            <WeeklyStudyPlan />
+          </CardContent>
+        </Collapse>
+      </Card>
+      <Card sx={{ maxWidth: "80%", width: "80%" }}>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title="Monthly Calendar"
+          subheader="View and add courses"
+        />
+        <CardActions disableSpacing>
+          <ExpandMore
+            expand={expandedMonth}
+            onClick={() => handleExpandClick("month")}
+            aria-expanded={expandedMonth}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expandedMonth} timeout="auto" unmountOnExit>
+          <CardContent>
+            <MonthlyCalendar />
+          </CardContent>
+        </Collapse>
+      </Card>
     </div>
   );
 };
