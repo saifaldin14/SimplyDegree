@@ -93,23 +93,6 @@ const Home = () => {
           <MonthlyCalendar />
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary aria-controls="panel4bh-content" id="panel4bh-header">
-          <Typography sx={{ width: "35%", flexShrink: 0 }}>Item 4</Typography>
-          <Typography sx={{ color: "text.secondary" }}>
-            Add this later
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-            sit amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
     </div>
   );
 };
