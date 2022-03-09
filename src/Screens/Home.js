@@ -1,6 +1,7 @@
 import React from "react";
 import Node from "../components/Node";
 import MonthlyCalendar from "../components/MonthlyCalendar";
+import WeeklyStudyPlan from "../components/WeeklyStudyPlan";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import { styled } from "@mui/material/styles";
@@ -75,7 +76,7 @@ const Home = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <MonthlyCalendar />
+          <WeeklyStudyPlan />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -89,10 +90,7 @@ const Home = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-            sit amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          <MonthlyCalendar />
         </AccordionDetails>
       </Accordion>
       <Accordion
