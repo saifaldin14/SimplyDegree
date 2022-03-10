@@ -31,7 +31,7 @@ function SignIn() {
           type="password"
           defaultValue=""
           variant="standard"
-          sx={{width: '25em'}}
+          sx={{width: '25em', marginTop: '1.3em'}}
         />
       <div className="login-button" onClick={() => navigate("/Home")}>
           <h1>Log In</h1>

@@ -1,0 +1,42 @@
+.body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-field {
+    margin-top: 30em;
+}
+
+.signup-button {
+    margin-top: 0.8em;
+    height: 5rem;
+    background-color: black;
+    color: white;
+    width: 15rem;
+    border-radius: 30px;
+    font-size: 2rem;
+    align-self: auto;
+}
+
+.signup-button h1 {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-55%);
+    background: linear-gradient(to right, rgb(255, 255, 255) 50%, #c1f2f8 70%, #3afa84);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.5s ease-out;
+}
+
+.signup-button h1:hover {
+    background-position: -100%;
+}
+
+.signup-button:hover {
+    cursor: pointer;
+}
