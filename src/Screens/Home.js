@@ -51,93 +51,75 @@ const Home = () => {
 
   return (
     <>
-    <div className="nav">
-    <img src={SmallLogo} alt="small-logo"/>
-    <div className="logout-button" onClick={() => navigate("/")}>
-      <h1>Log Out</h1>
-    </div>
-    </div>
-    
-    <div id="Home-Div">
-      <Card sx={{ maxWidth: "80%", width: "80%" }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Course Graph"
-          subheader="View and add courses"
-        />
-        <CardActions disableSpacing>
-          <ExpandMore
-            expand={expandedCourses}
-            onClick={() => handleExpandClick("course")}
-            aria-expanded={expandedCourses}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expandedCourses} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Node />
-          </CardContent>
-        </Collapse>
-      </Card>
-      <Card sx={{ maxWidth: "80%", width: "80%" }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Weekly Study Plan"
-          subheader="View and add courses"
-        />
-        <CardActions disableSpacing>
-          <ExpandMore
-            expand={expandedWeek}
-            onClick={() => handleExpandClick("week")}
-            aria-expanded={expandedWeek}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expandedWeek} timeout="auto" unmountOnExit>
-          <CardContent>
-            <WeeklyStudyPlan />
-          </CardContent>
-        </Collapse>
-      </Card>
-      <Card sx={{ maxWidth: "80%", width: "80%" }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Monthly Calendar"
-          subheader="View and add courses"
-        />
-        <CardActions disableSpacing>
-          <ExpandMore
-            expand={expandedMonth}
-            onClick={() => handleExpandClick("month")}
-            aria-expanded={expandedMonth}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expandedMonth} timeout="auto" unmountOnExit>
-          <CardContent>
-            <MonthlyCalendar />
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
+      <div className="nav">
+        <img src={SmallLogo} alt="small-logo" />
+        <div className="logout-button" onClick={() => navigate("/")}>
+          <h1>Log Out</h1>
+        </div>
+      </div>
+
+      <div id="Home-Div">
+        <Card sx={{ maxWidth: "80%", width: "80%" }}>
+          <CardHeader title="Course Graph" subheader="View and add courses" />
+          <CardActions disableSpacing>
+            <ExpandMore
+              expand={expandedCourses}
+              onClick={() => handleExpandClick("course")}
+              aria-expanded={expandedCourses}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expandedCourses} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Node />
+            </CardContent>
+          </Collapse>
+        </Card>
+        <Card sx={{ maxWidth: "80%", width: "80%" }}>
+          <CardHeader
+            title="Weekly Study Plan"
+            subheader="View and add courses"
+          />
+          <CardActions disableSpacing>
+            <ExpandMore
+              expand={expandedWeek}
+              onClick={() => handleExpandClick("week")}
+              aria-expanded={expandedWeek}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expandedWeek} timeout="auto" unmountOnExit>
+            <CardContent>
+              <WeeklyStudyPlan />
+            </CardContent>
+          </Collapse>
+        </Card>
+        <Card sx={{ maxWidth: "80%", width: "80%" }}>
+          <CardHeader
+            title="Monthly Calendar"
+            subheader="View and add courses"
+          />
+          <CardActions disableSpacing>
+            <ExpandMore
+              expand={expandedMonth}
+              onClick={() => handleExpandClick("month")}
+              aria-expanded={expandedMonth}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expandedMonth} timeout="auto" unmountOnExit>
+            <CardContent>
+              <MonthlyCalendar />
+            </CardContent>
+          </Collapse>
+        </Card>
+      </div>
     </>
   );
 };
