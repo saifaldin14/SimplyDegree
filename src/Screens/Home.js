@@ -10,7 +10,6 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
@@ -80,7 +79,7 @@ const Home = () => {
         <Card sx={{ maxWidth: "80%", width: "80%" }}>
           <CardHeader
             title="Weekly Study Plan"
-            subheader="View and add courses"
+            subheader="View and edit your weekly study plan"
           />
           <CardActions disableSpacing>
             <ExpandMore
@@ -101,7 +100,7 @@ const Home = () => {
         <Card sx={{ maxWidth: "80%", width: "80%" }}>
           <CardHeader
             title="Monthly Calendar"
-            subheader="View and add courses"
+            subheader="View and add due dates for the upcoming month"
           />
           <CardActions disableSpacing>
             <ExpandMore

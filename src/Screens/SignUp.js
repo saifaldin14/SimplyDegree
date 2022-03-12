@@ -18,7 +18,7 @@ function SignUp() {
           required
           id="standard-disabled"
           label="Email"
-          defaultValue=""
+          value="email"
           variant="standard"
           sx={{width: '25em', marginTop: '10em'}}
         />
@@ -27,7 +27,7 @@ function SignUp() {
           id="standard-disabled"
           label="Password"
           type="Password"
-          defaultValue=""
+          alue="password"
           variant="standard"
           sx={{width: '25em', marginTop: '1.4em'}}
         />
@@ -36,7 +36,7 @@ function SignUp() {
           id="standard-disabled"
           type="Password"
           label="Confirm Password"
-          defaultValue=""
+          value="confirmPassword"
           variant="standard"
           sx={{width: '25em', marginTop: '1.4em'}}
         />
@@ -45,7 +45,7 @@ function SignUp() {
           id="standard-disabled"
           select
           label="Select your Program"
-          defaultValue=""
+          value="programName"
           variant="standard"
           sx={{width: '25em', marginTop: '1.4em'}}
         >
