@@ -9,6 +9,9 @@ import {
   DragDropProvider,
   EditRecurrenceMenu,
   AllDayPanel,
+  AppointmentForm,
+  ConfirmationDialog,
+  AppointmentTooltip,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const recurrenceAppointments = [
@@ -102,9 +105,15 @@ export default class WeeklyStudyPlan extends React.PureComponent {
     this.state = {
       data: recurrenceAppointments,
       currentDate: new Date("2018-06-27"),
+      addedAppointment: {},
+      appointmentChanges: {},
+      editingAppointment: undefined,
     };
 
-    this.onCommitChanges = this.commitChanges.bind(this);
+    this.commitChanges = this.commitChanges.bind(this);
+    this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
+    this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
+    this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -129,18 +138,49 @@ export default class WeeklyStudyPlan extends React.PureComponent {
     });
   }
 
+  changeAddedAppointment(addedAppointment) {
+    this.setState({ addedAppointment });
+  }
+
+  changeAppointmentChanges(appointmentChanges) {
+    this.setState({ appointmentChanges });
+  }
+
+  changeEditingAppointment(editingAppointment) {
+    this.setState({ editingAppointment });
+  }
+
   render() {
-    const { data, currentDate } = this.state;
+    const {
+      currentDate,
+      data,
+      addedAppointment,
+      appointmentChanges,
+      editingAppointment,
+    } = this.state;
 
     return (
       <Paper>
         <Scheduler data={data} height={660}>
           <ViewState defaultCurrentDate={currentDate} />
-          <EditingState onCommitChanges={this.onCommitChanges} />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+            addedAppointment={addedAppointment}
+            onAddedAppointmentChange={this.changeAddedAppointment}
+            appointmentChanges={appointmentChanges}
+            onAppointmentChangesChange={this.changeAppointmentChanges}
+            editingAppointment={editingAppointment}
+            onEditingAppointmentChange={this.changeEditingAppointment}
+          />
           <EditRecurrenceMenu />
           <WeekView startDayHour={9} endDayHour={16} />
           <Appointments appointmentComponent={appointmentComponent} />
           <AllDayPanel />
+          <EditRecurrenceMenu />
+          <ConfirmationDialog />
+          <Appointments />
+          <AppointmentTooltip showOpenButton showDeleteButton />
+          <AppointmentForm />
           <DragDropProvider allowDrag={allowDrag} />
         </Scheduler>
       </Paper>
