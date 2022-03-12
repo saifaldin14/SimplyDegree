@@ -12,6 +12,8 @@ import IconButton from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import "./Home.css";
+import SmallLogo from "../assets/signIn/small-logo.svg";
+import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -25,6 +27,8 @@ const ExpandMore = styled((props) => {
 }));
 
 const Home = () => {
+  let navigate = useNavigate();
+
   const [expandedCourses, setExpandedCourses] = React.useState(false);
   const [expandedWeek, setExpandedWeek] = React.useState(false);
   const [expandedMonth, setExpandedMonth] = React.useState(false);
@@ -46,6 +50,14 @@ const Home = () => {
   };
 
   return (
+    <>
+    <div className="nav">
+    <img src={SmallLogo} alt="small-logo"/>
+    <div className="logout-button" onClick={() => navigate("/")}>
+      <h1>Log Out</h1>
+    </div>
+    </div>
+    
     <div id="Home-Div">
       <Card sx={{ maxWidth: "80%", width: "80%" }}>
         <CardHeader
@@ -126,6 +138,7 @@ const Home = () => {
         </Collapse>
       </Card>
     </div>
+    </>
   );
 };
 

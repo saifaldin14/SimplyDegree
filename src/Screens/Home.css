@@ -7,3 +7,42 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+.logout-button {
+  margin-top: 0.8em;
+  height: 5rem;
+  background-color: black;
+  color: white;
+  width: 10rem;
+  border-radius: 30px;
+  font-size: 2rem;
+  align-self: auto;
+}
+
+.logout-button h1 {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-55%);
+  background: linear-gradient(to left, #fc1212 15%, rgb(255, 255, 255) 50% );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease-out;
+}
+
+.logout-button h1:hover {
+  background-position: 100%;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+}
+
+.nav {
+  width: 80%;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}

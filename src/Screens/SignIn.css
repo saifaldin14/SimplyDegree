@@ -8,7 +8,7 @@
 }
 
 .graphics {
-    width: 600px;
+    width: 40em;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
