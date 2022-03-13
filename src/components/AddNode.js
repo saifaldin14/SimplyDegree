@@ -26,8 +26,10 @@ export default function AddNode() {
     console.log(courseName, " ", courseCode);
     setElements((e) =>
       e.concat({
-        id: (e.length + 1).toString(),
+        id: `horizontal-${e.length + 1}`,
         data: { label: `${courseName}` },
+        sourcePosition: "right",
+        targetPosition: "left",
         position: {
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
