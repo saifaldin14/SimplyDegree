@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Card } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Card, Typography, TextField, Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SendIcon from "@mui/icons-material/Send";
 
 const style = {
   position: "absolute",
@@ -18,11 +19,48 @@ export default function AddNode() {
   return (
     <Card sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Text in a modal
+        Add a Course
       </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </Typography>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          gap: "2rem",
+          marginTop: "2rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Course Name [required]"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-basic"
+          label="Course Code [required]"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-basic"
+          label="Course Description [optional]"
+          variant="outlined"
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Button variant="contained" endIcon={<SendIcon />}>
+          Add
+        </Button>
+        <Button variant="outlined" startIcon={<DeleteIcon />}>
+          Cancel
+        </Button>
+      </div>
     </Card>
   );
 }
