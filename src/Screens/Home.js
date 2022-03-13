@@ -16,7 +16,8 @@ import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
 import AddNode from "../components/AddNode";
-import { ModalContext } from "../utils/context";
+import { CourseContext } from "../utils/context";
+import { initialElements } from "../utils/constants";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,6 +37,7 @@ const Home = () => {
   const [expandedWeek, setExpandedWeek] = React.useState(false);
   const [expandedMonth, setExpandedMonth] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [elements, setElements] = React.useState(initialElements);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -57,7 +59,9 @@ const Home = () => {
   };
 
   return (
-    <ModalContext.Provider value={{ open, setOpen, handleClose, handleOpen }}>
+    <CourseContext.Provider
+      value={{ open, setOpen, handleClose, handleOpen, elements, setElements }}
+    >
       <div className="nav">
         <img src={SmallLogo} alt="small-logo" />
         <div className="logout-button" onClick={() => navigate("/")}>
@@ -139,7 +143,7 @@ const Home = () => {
           <AddNode />
         </Modal>
       </div>
-    </ModalContext.Provider>
+    </CourseContext.Provider>
   );
 };
 

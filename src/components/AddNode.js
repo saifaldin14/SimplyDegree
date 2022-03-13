@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
-import { ModalContext } from "../utils/context";
+import { CourseContext } from "../utils/context";
 
 const style = {
   position: "absolute",
@@ -20,10 +20,20 @@ export default function AddNode() {
   const [courseName, setCourseName] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
-  const { open, setOpen, handleClose, handleOpen } = useContext(ModalContext);
+  const { elements, setElements, handleClose } = useContext(CourseContext);
 
   const addCourse = () => {
     console.log(courseName, " ", courseCode);
+    setElements((e) =>
+      e.concat({
+        id: (e.length + 1).toString(),
+        data: { label: `${courseName}` },
+        position: {
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+        },
+      })
+    );
     handleClose();
   };
   return (
