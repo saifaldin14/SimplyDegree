@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
@@ -16,6 +16,13 @@ const style = {
 };
 
 export default function AddNode() {
+  const [courseName, setCourseName] = useState("");
+  const [courseCode, setCourseCode] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+
+  const addCourse = () => {
+    console.log(courseName, " ", courseCode);
+  };
   return (
     <Card sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -35,16 +42,19 @@ export default function AddNode() {
           id="outlined-basic"
           label="Course Name [required]"
           variant="outlined"
+          onChange={(e) => setCourseName(e.target.value)}
         />
         <TextField
           id="outlined-basic"
           label="Course Code [required]"
           variant="outlined"
+          onChange={(e) => setCourseCode(e.target.value)}
         />
         <TextField
           id="outlined-basic"
           label="Course Description [optional]"
           variant="outlined"
+          onChange={(e) => setCourseDescription(e.target.value)}
         />
       </div>
       <div
@@ -54,12 +64,12 @@ export default function AddNode() {
           justifyContent: "space-between",
         }}
       >
-        <Button variant="contained" endIcon={<SendIcon />}>
+        <Button variant="contained" endIcon={<SendIcon />} onClick={addCourse}>
           Add
         </Button>
-        <Button variant="outlined" startIcon={<DeleteIcon />}>
+        {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
           Cancel
-        </Button>
+        </Button> */}
       </div>
     </Card>
   );
