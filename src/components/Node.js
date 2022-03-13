@@ -7,6 +7,8 @@ import ReactFlow, {
   MiniMap,
   removeElements,
 } from "react-flow-renderer";
+import Modal from "@mui/material/Modal";
+import EditNode from "./EditNode";
 
 const initialElements = [
   {
@@ -120,9 +122,6 @@ const initialElements = [
 const onLoad = (reactFlowInstance) => {
   reactFlowInstance.fitView();
 };
-const onNodeMouseEnter = (event, node) => console.log("mouse enter:", node);
-const onNodeMouseMove = (event, node) => console.log("mouse move:", node);
-const onNodeMouseLeave = (event, node) => console.log("mouse leave:", node);
 const onNodeContextMenu = (event, node) => {
   event.preventDefault();
   console.log("context menu:", node);
@@ -130,20 +129,14 @@ const onNodeContextMenu = (event, node) => {
 
 const Node = () => {
   const [elements, setElements] = useState(initialElements);
+  const [open, setOpen] = useState(false);
+  const [openedNode, setOpenedNode] = useState({});
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params) => setElements((els) => addEdge(params, els));
-  const changeClassName = () => {
-    setElements((elms) =>
-      elms.map((el) => {
-        if (el.type === "input") {
-          el.className = el.className ? "" : "dark-node";
-        }
-
-        return { ...el };
-      })
-    );
-  };
 
   const addNode = () => {
     // setElements((e) =>
@@ -159,6 +152,11 @@ const Node = () => {
     console.log("Hi");
   };
 
+  const onNodeDoubleClick = (event, node) => {
+    handleOpen();
+    setOpenedNode(node);
+  };
+
   return (
     <Fragment>
       <ReactFlow
@@ -171,9 +169,10 @@ const Node = () => {
         snapToGrid={true}
         snapGrid={[16, 16]}
         onElementsRemove={onElementsRemove}
-        onNodeMouseEnter={onNodeMouseEnter}
-        onNodeMouseMove={onNodeMouseMove}
-        onNodeMouseLeave={onNodeMouseLeave}
+        // onNodeMouseEnter={onNodeMouseEnter}
+        // onNodeMouseMove={onNodeMouseMove}
+        // onNodeMouseLeave={onNodeMouseLeave}
+        onNodeDoubleClick={onNodeDoubleClick}
         onNodeContextMenu={onNodeContextMenu}
       >
         <Background color="#888" gap={16} />
@@ -185,12 +184,6 @@ const Node = () => {
           }}
         />
         <Controls />
-        <button
-          onClick={changeClassName}
-          style={{ position: "absolute", right: 10, top: 30, zIndex: 4 }}
-        >
-          change class name
-        </button>
       </ReactFlow>
 
       <div>
@@ -203,6 +196,14 @@ const Node = () => {
           Add New Node
         </button>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EditNode node={openedNode} />
+      </Modal>
     </Fragment>
   );
 };
