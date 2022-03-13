@@ -16,6 +16,7 @@ import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
 import AddNode from "../components/AddNode";
+import { AddCourseContext } from "../utils/context";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -56,7 +57,9 @@ const Home = () => {
   };
 
   return (
-    <>
+    <AddCourseContext.Provider
+      value={{ open, setOpen, handleClose, handleOpen }}
+    >
       <div className="nav">
         <img src={SmallLogo} alt="small-logo" />
         <div className="logout-button" onClick={() => navigate("/")}>
@@ -138,7 +141,7 @@ const Home = () => {
           <AddNode />
         </Modal>
       </div>
-    </>
+    </AddCourseContext.Provider>
   );
 };
 
