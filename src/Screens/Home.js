@@ -11,6 +11,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Add } from "@mui/icons-material";
 import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
