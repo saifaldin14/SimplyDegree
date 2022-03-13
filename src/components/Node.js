@@ -193,7 +193,7 @@ const Node = () => {
           name="title"
         /> */}
         <button type="button" onClick={addNode}>
-          Add New Node
+          Add New Course
         </button>
       </div>
       <Modal
