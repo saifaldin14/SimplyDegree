@@ -9,10 +9,12 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
+import AddNode from "../components/AddNode";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,6 +33,10 @@ const Home = () => {
   const [expandedCourses, setExpandedCourses] = React.useState(false);
   const [expandedWeek, setExpandedWeek] = React.useState(false);
   const [expandedMonth, setExpandedMonth] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleExpandClick = (actionType) => {
     switch (actionType) {
@@ -61,6 +67,9 @@ const Home = () => {
         <Card sx={{ maxWidth: "80%", width: "80%" }}>
           <CardHeader title="Course Graph" subheader="View and add courses" />
           <CardActions disableSpacing>
+            <IconButton aria-label="add course" onClick={handleOpen}>
+              <Add />
+            </IconButton>
             <ExpandMore
               expand={expandedCourses}
               onClick={() => handleExpandClick("course")}
@@ -118,6 +127,15 @@ const Home = () => {
             </CardContent>
           </Collapse>
         </Card>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <AddNode />
+        </Modal>
       </div>
     </>
   );
