@@ -77,17 +77,6 @@ const Node = () => {
         />
         <Controls />
       </ReactFlow>
-
-      <div>
-        {/* <input
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-          name="title"
-        /> */}
-        <button type="button" onClick={addNode}>
-          Add New Course
-        </button>
-      </div>
       <Modal
         open={open}
         onClose={handleClose}
