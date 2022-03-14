@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useRef} from "react";
 import { TextField, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import './SignUp.css'
@@ -13,9 +13,13 @@ const courses = [
 
 function SignUp() {
     let navigate = useNavigate();
-    const {handleSubmit, control} = useForm();
+    const {handleSubmit, control, watch} = useForm();
+
+    const pword = useRef({});
+    pword.current = watch("password", "");
+
     const onSubmit = data => {
-      console.log(data);
+      console.log(JSON.stringify(data));
       navigate("/");
     }
     return (
@@ -40,24 +44,49 @@ function SignUp() {
           rules ={{required: 'Email required'}}
 
         />
-        
-        <TextField
-          required
-          id="standard"
-          label="Password"
-          type="Password"
-          value=""
-          variant="standard"
-          sx={{width: '25em', marginTop: '1.4em'}}
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          render={({field: {onChange, value}, fieldState: {error}}) => (
+          <TextField
+            required
+            id="standard"
+            label="Password"
+            type="Password"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
+            variant="standard"
+            sx={{width: '25em', marginTop: '1.4em'}}
+          />
+          )}
+          rules ={{required: 'Password required'}}
         />
-        <TextField
-          required
-          id="standard"
-          type="confirmPassword"
-          label="Confirm Password"
-          value=""
-          variant="standard"
-          sx={{width: '25em', marginTop: '1.4em'}}
+
+        <Controller
+          name="confirmPassword"
+          control={control}
+          defaultValue=""
+          render={({field: {onChange, value}, fieldState: {error}}) => (
+          <TextField
+            required
+            id="standard"
+            type="password"
+            label="Confirm Password"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
+            variant="standard"
+            sx={{width: '25em', marginTop: '1.4em'}}
+          />
+          )}
+          rules={{
+            required: "Confirm password required",
+            validate: value => value === pword.current || "Passwords do not match",
+          }}
         />
 
         <Controller
