@@ -180,7 +180,7 @@ export default class WeeklyStudyPlan extends React.PureComponent {
           <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip showOpenButton showDeleteButton />
-          <AppointmentForm />
+          <AppointmentForm fullSize={true} />
           <DragDropProvider allowDrag={allowDrag} />
         </Scheduler>
       </Paper>
