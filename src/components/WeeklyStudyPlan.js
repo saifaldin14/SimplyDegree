@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { useState } from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
 import {
@@ -12,6 +12,9 @@ import {
   AppointmentForm,
   ConfirmationDialog,
   AppointmentTooltip,
+  Toolbar,
+  DateNavigator,
+  TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const recurrenceAppointments = [
@@ -173,7 +176,10 @@ export default class WeeklyStudyPlan extends React.PureComponent {
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
           <EditRecurrenceMenu />
-          <WeekView startDayHour={9} endDayHour={16} />
+          <WeekView startDayHour={5} endDayHour={21} />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
           <Appointments appointmentComponent={appointmentComponent} />
           <AllDayPanel />
           <EditRecurrenceMenu />
