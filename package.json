@@ -8,6 +8,7 @@
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.2",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
+    "@fontsource/roboto": "^4.5.3",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
     "@fullcalendar/react": "^5.10.1",

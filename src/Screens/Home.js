@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import AddNode from "../components/AddNode";
 import { CourseContext } from "../utils/context";
 import { initialElements } from "../utils/constants";
+import Footer from "../components/Footer";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -112,7 +113,7 @@ const Home = () => {
             </CardContent>
           </Collapse>
         </Card>
-        <Card sx={{ maxWidth: "80%", width: "80%" }}>
+        <Card sx={{ maxWidth: "80%", width: "80%", marginBottom: "2rem" }}>
           <CardHeader
             title="Monthly Calendar"
             subheader="View and add due dates for the upcoming month"
@@ -143,6 +144,7 @@ const Home = () => {
           <AddNode />
         </Modal>
       </div>
+      <Footer />
     </CourseContext.Provider>
   );
 };
