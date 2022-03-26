@@ -1,4 +1,4 @@
-export const initialElements = [
+export const initialNodes = [
   {
     id: "horizontal-1",
     sourcePosition: "right",
@@ -56,7 +56,9 @@ export const initialElements = [
     data: { label: "MA103" },
     position: { x: 750, y: 300 },
   },
+];
 
+export const initialEdges = [
   {
     id: "horizontal-e1-2",
     source: "horizontal-1",

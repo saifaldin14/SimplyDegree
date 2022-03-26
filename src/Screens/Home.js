@@ -17,7 +17,7 @@ import SmallLogo from "../assets/signIn/small-logo.svg";
 import { useNavigate } from "react-router-dom";
 import AddNode from "../components/AddNode";
 import { CourseContext } from "../utils/context";
-import { initialElements } from "../utils/constants";
+import { initialNodes, initialEdges } from "../utils/constants";
 import Footer from "../components/Footer";
 
 const ExpandMore = styled((props) => {
@@ -38,7 +38,8 @@ const Home = () => {
   const [expandedWeek, setExpandedWeek] = React.useState(false);
   const [expandedMonth, setExpandedMonth] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [elements, setElements] = React.useState(initialElements);
+  const [nodes, setNodes] = React.useState(initialNodes);
+  const [edges, setEdges] = React.useState(initialEdges);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -61,7 +62,16 @@ const Home = () => {
 
   return (
     <CourseContext.Provider
-      value={{ open, setOpen, handleClose, handleOpen, elements, setElements }}
+      value={{
+        open,
+        setOpen,
+        handleClose,
+        handleOpen,
+        nodes,
+        setNodes,
+        edges,
+        setEdges,
+      }}
     >
       <div className="nav">
         <img src={SmallLogo} alt="small-logo" />

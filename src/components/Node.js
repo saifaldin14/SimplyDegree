@@ -1,10 +1,11 @@
-import React, { useState, Fragment, useContext } from "react";
+import React, { useState, Fragment, useContext, useEffect } from "react";
 import ReactFlow, {
   addEdge,
   Background,
   Controls,
   MiniMap,
-  removeElements,
+  useNodesState,
+  useEdgesState,
 } from "react-flow-renderer";
 import Modal from "@mui/material/Modal";
 import EditNode from "./EditNode";
@@ -22,14 +23,19 @@ const onNodeContextMenu = (event, node) => {
 const Node = () => {
   const [open, setOpen] = useState(false);
   const [openedNode, setOpenedNode] = useState({});
-  const { elements, setElements } = useContext(CourseContext);
+  const { nodes, setNodes, edges, setEdges } = useContext(CourseContext);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const onElementsRemove = (elementsToRemove) =>
-    setElements((els) => removeElements(elementsToRemove, els));
-  const onConnect = (params) => setElements((els) => addEdge(params, els));
+  // const onElementsRemove = (elementsToRemove) =>
+  //   setElements((els) => removeElements(elementsToRemove, els));
+  const [gNodes, setGNodes, onNodesChange] = useNodesState(nodes);
+  const [gEdges, setGEdges, onEdgesChange] = useEdgesState(edges);
+  const onConnect = (params) => setGEdges((eds) => addEdge(params, eds));
 
+  useEffect(() => {
+    setGNodes(nodes);
+  }, [nodes]);
   const addNode = () => {
     // setElements((e) =>
     //   e.concat({
@@ -52,15 +58,18 @@ const Node = () => {
   return (
     <Fragment>
       <ReactFlow
-        elements={elements}
+        nodes={gNodes}
+        edges={gEdges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
         onLoad={onLoad}
         style={{ width: "100%", height: "90vh" }}
-        onConnect={onConnect}
         connectionLineStyle={{ stroke: "#ddd", strokeWidth: 2 }}
         connectionLineType="bezier"
         snapToGrid={true}
         snapGrid={[16, 16]}
-        onElementsRemove={onElementsRemove}
+        // onElementsRemove={onElementsRemove}
         // onNodeMouseEnter={onNodeMouseEnter}
         // onNodeMouseMove={onNodeMouseMove}
         // onNodeMouseLeave={onNodeMouseLeave}

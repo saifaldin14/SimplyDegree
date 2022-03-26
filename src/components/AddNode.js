@@ -20,11 +20,11 @@ export default function AddNode() {
   const [courseName, setCourseName] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
-  const { elements, setElements, handleClose } = useContext(CourseContext);
+  const { nodes, setNodes, handleClose } = useContext(CourseContext);
 
   const addCourse = () => {
     console.log(courseName, " ", courseCode);
-    setElements((e) =>
+    setNodes((e) =>
       e.concat({
         id: `horizontal-${e.length + 1}`,
         data: { label: `${courseName}` },
