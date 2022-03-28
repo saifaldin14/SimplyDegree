@@ -1,6 +1,6 @@
 import React from "react";
 // import Node from "./components/Node";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./Screens/SignIn.js";
 import "./App.css";
 import { AuthProvider } from "./utils/context";
@@ -13,11 +13,13 @@ function App() {
     <div className="App">
       <Router>
         <AuthProvider>
-          <Switch>
-            <PrivateRoute path="/" element={<Home />} />
+          <Routes>
+            <Route exact path="/" element={<PrivateRoute />}>
+              <Route exact path="/" element={<Home />} />
+            </Route>
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-          </Switch>
+          </Routes>
         </AuthProvider>
       </Router>
     </div>

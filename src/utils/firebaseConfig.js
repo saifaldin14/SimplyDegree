@@ -3,6 +3,7 @@ import "firebase/database";
 import "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { initializeAuth } from "firebase/auth";
 
 // The only reason not using .env is so that the professor can run and use the application
 
@@ -18,4 +19,4 @@ const firebaseConfig = {
 
 export const firebaseApp = initializeApp(firebaseConfig);
 export const fireabseAnalytics = getAnalytics(firebaseApp);
-export const auth = firebaseApp.auth();
+export const auth = initializeAuth(firebaseApp);

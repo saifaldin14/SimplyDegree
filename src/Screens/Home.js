@@ -14,13 +14,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Add } from "@mui/icons-material";
 import "./Home.css";
 import SmallLogo from "../assets/signIn/small-logo.svg";
-import { useNavigate } from "react-router-dom";
 import AddNode from "../components/AddNode";
 import { CourseContext } from "../utils/context";
 import { initialNodes, initialEdges } from "../utils/constants";
 import Footer from "../components/Footer";
 import { useAuth } from "../utils/context";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -44,7 +43,7 @@ const Home = () => {
   const [edges, setEdges] = React.useState(initialEdges);
   const [error, setError] = React.useState("");
   const { currentUser, logout } = useAuth();
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
