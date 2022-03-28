@@ -3,7 +3,8 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
-import db from "@firebase/database"
+
+const {db} = require('../utils/firebaseConfig');
 
 const style = {
   position: "absolute",
