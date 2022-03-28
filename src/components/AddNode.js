@@ -3,8 +3,9 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
+import { collection, addDoc } from "firebase/firestore";
 
-const {db} = require('../utils/firebaseConfig');
+const { db } = require("../utils/firebaseConfig");
 
 const style = {
   position: "absolute",
@@ -38,13 +39,18 @@ export default function AddNode() {
       })
     );
     e.preventDefault();
-    db.collection('courses').add({
+    // db.collection("courses").add({
+    //   course_name: courseName,
+    //   course_code: courseCode,
+    //   course_desc: courseDescription,
+    // });
+    const docRef = await addDoc(collection(db, "courses"), {
       course_name: courseName,
       course_code: courseCode,
-      course_desc: courseDescription
-    })
+      course_desc: courseDescription,
+    });
     handleClose();
-  };
+  }
   return (
     <Card sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">

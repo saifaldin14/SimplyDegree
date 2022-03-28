@@ -1,10 +1,11 @@
 import firebase from "firebase/app";
-import '@firebase/firestore'
+import "firebase/firestore";
 import "firebase/database";
 import "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // The only reason not using .env is so that the professor can run and use the application
 
@@ -22,4 +23,4 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const fireabseAnalytics = getAnalytics(firebaseApp);
 // export const auth = getAuth(firebaseApp);
 export const auth = getAuth();
-export const db = firebaseApp.firestore();
+export const db = getFirestore(firebaseApp);
