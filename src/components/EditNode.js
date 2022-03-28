@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
+import {collection, updateDoc} from 'firebase/firestore';
+
+const { db } = require("../utils/firebaseConfig");
 
 const style = {
   position: "absolute",
@@ -20,8 +23,14 @@ export default function EditNode({ node }) {
   const [courseCode, setCourseCode] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
 
-  const editCourse = () => {
+  async function editCourse(e) {
     console.log(courseName, " ", courseCode);
+    e.preventDefault();
+    const docRef = await updateDoc(collection(db, "courses"), {
+      course_name: courseName,
+      course_code: courseCode,
+      course_desc: courseDescription,
+    });
   };
   return (
     <Card sx={style}>
