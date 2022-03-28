@@ -19,6 +19,8 @@ import AddNode from "../components/AddNode";
 import { CourseContext } from "../utils/context";
 import { initialNodes, initialEdges } from "../utils/constants";
 import Footer from "../components/Footer";
+import { useAuth } from "../utils/context";
+import { Link, useHistory } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,6 +42,9 @@ const Home = () => {
   const [open, setOpen] = React.useState(false);
   const [nodes, setNodes] = React.useState(initialNodes);
   const [edges, setEdges] = React.useState(initialEdges);
+  const [error, setError] = React.useState("");
+  const { currentUser, logout } = useAuth();
+  const history = useHistory();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -60,6 +65,17 @@ const Home = () => {
     }
   };
 
+  async function handleLogout() {
+    setError("");
+
+    try {
+      await logout();
+      history.push("/login");
+    } catch {
+      setError("Failed to log out");
+    }
+  }
+
   return (
     <CourseContext.Provider
       value={{
@@ -75,7 +91,7 @@ const Home = () => {
     >
       <div className="nav">
         <img src={SmallLogo} alt="small-logo" />
-        <div className="logout-button" onClick={() => navigate("/")}>
+        <div className="logout-button" variant="link" onClick={handleLogout}>
           <h1>Log Out</h1>
         </div>
       </div>
