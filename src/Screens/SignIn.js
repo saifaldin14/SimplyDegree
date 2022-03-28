@@ -23,9 +23,9 @@ function SignIn() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate.push("/");
-    } catch {
-      setError("Failed to log in");
+      navigate("/");
+    } catch (e) {
+      setError(`Failed to log in. Error is ${e}`);
     }
 
     setLoading(false);
@@ -41,28 +41,27 @@ function SignIn() {
       </div>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
-        <Form.Group id="email">
-          <TextField
+        <Form.Group id="email" className="mb-3">
+          <Form.Control
             required
-            id="standard-disabled"
-            label="Email"
-            defaultValue=""
-            variant="standard"
-            sx={{ width: "25em" }}
+            type="email"
+            placeholder="Enter email"
+            style={{ width: "25em", border: "0.5px solid gray" }}
             ref={emailRef}
           />
         </Form.Group>
-        <Form.Group id="password">
-          <TextField
+        <Form.Group id="password" className="mb-3">
+          <Form.Control
             required
-            id="standard-password-input"
-            label="Password"
             type="password"
-            defaultValue=""
-            variant="standard"
-            sx={{ width: "25em", marginTop: "1.3em" }}
+            placeholder="Password"
             ref={passwordRef}
-          />
+            style={{
+              width: "25em",
+              border: "0.5px solid gray",
+              marginTop: "1.3em",
+            }}
+          ></Form.Control>
         </Form.Group>
         <Button disabled={loading} className="login-button" type="submit">
           Log In

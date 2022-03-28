@@ -43,7 +43,6 @@ const Home = () => {
   const [edges, setEdges] = React.useState(initialEdges);
   const [error, setError] = React.useState("");
   const { currentUser, logout } = useAuth();
-  const history = useNavigate();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -69,7 +68,7 @@ const Home = () => {
 
     try {
       await logout();
-      history.push("/login");
+      navigate("/login");
     } catch {
       setError("Failed to log out");
     }
