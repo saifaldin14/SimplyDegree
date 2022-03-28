@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import  firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import { initializeApp } from "firebase/app";

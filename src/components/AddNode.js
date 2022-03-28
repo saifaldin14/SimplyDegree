@@ -3,6 +3,7 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
+import db from "@firebase/database"
 
 const style = {
   position: "absolute",
@@ -11,7 +12,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -22,7 +22,7 @@ export default function AddNode() {
   const [courseDescription, setCourseDescription] = useState("");
   const { nodes, setNodes, handleClose } = useContext(CourseContext);
 
-  const addCourse = () => {
+  async function addCourse(e) {
     console.log(courseName, " ", courseCode);
     setNodes((e) =>
       e.concat({
@@ -36,6 +36,12 @@ export default function AddNode() {
         },
       })
     );
+    e.preventDefault();
+    db.collection('courses').add({
+      course_name: courseName,
+      course_code: courseCode,
+      course_desc: courseDescription
+    })
     handleClose();
   };
   return (

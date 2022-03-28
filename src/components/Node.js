@@ -64,7 +64,7 @@ const Node = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onLoad={onLoad}
-        style={{ width: "100%", height: "90vh" }}
+        style={{ width: "100%", height: "60vh" }}
         connectionLineStyle={{ stroke: "#ddd", strokeWidth: 2 }}
         connectionLineType="bezier"
         snapToGrid={true}
