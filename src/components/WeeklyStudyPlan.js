@@ -1,7 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from "react";
 import Paper from "@mui/material/Paper";
-import { ViewState, EditingState } from "@devexpress/dx-react-scheduler";
+import {
+  ViewState,
+  EditingState,
+  GroupingState,
+  IntegratedGrouping,
+  IntegratedEditing,
+} from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
   WeekView,
@@ -15,74 +21,12 @@ import {
   Toolbar,
   DateNavigator,
   TodayButton,
+  Resources,
+  GroupingPanel,
+  ViewSwitcher,
 } from "@devexpress/dx-react-scheduler-material-ui";
-
-const recurrenceAppointments = [
-  {
-    title: "Finish CP317 Design Document",
-    startDate: new Date("March 20, 2022 09:15:00"),
-    endDate: new Date("March 20, 2022 012:15:00"),
-    id: 100,
-    rRule: "FREQ=DAILY;COUNT=3",
-  },
-  {
-    title: "Eat Healthy",
-    startDate: new Date("March 21, 2022 012:15:00"),
-    endDate: new Date("March 21, 2022 016:15:00"),
-    id: 101,
-    rRule: "FREQ=DAILY;COUNT=4",
-    allDay: true,
-  },
-  {
-    title: "Study for CP363",
-    startDate: new Date("March 23, 2022 013:15:00"),
-    endDate: new Date("March 23, 2022 014:35:00"),
-    id: 102,
-    rRule: "FREQ=DAILY;COUNT=5",
-  },
-  {
-    title: "Finish BU121 Assignment",
-    startDate: new Date("March 24, 2022 10:00:00"),
-    endDate: new Date("March 24, 2022 11:00:00"),
-    id: 3,
-    location: "Room 2",
-  },
-  {
-    title: "Study for CP317",
-    startDate: new Date("March 25, 2022 11:45:00"),
-    endDate: new Date("March 25, 2022 013:20:00"),
-    id: 4,
-    location: "Room 2",
-  },
-  {
-    title: "Study CP363",
-    startDate: new Date("March 25, 2022 14:40:00"),
-    endDate: new Date("March 25, 2022 15:45:00"),
-    id: 5,
-    location: "Room 2",
-  },
-  {
-    title: "Read Java Book",
-    startDate: new Date("March 26, 2022 09:45:00"),
-    endDate: new Date("March 26, 2022 011:15:00"),
-    id: 6,
-    location: "Room 1",
-  },
-  {
-    title: "Study BU121",
-    startDate: new Date("March 26, 2022 11:45:00"),
-    endDate: new Date("March 26, 2022 013:05:00"),
-    id: 7,
-    location: "Room 3",
-  },
-  {
-    title: "Work on CP363",
-    startDate: new Date("March 26, 2022 10:00:00"),
-    endDate: new Date("March 26, 2022 011:30:00"),
-    id: 12,
-    location: "Room 2",
-  },
-];
+import { blue, orange } from "@mui/material/colors";
+import { recurrenceAppointments } from "../utils/constants";
 
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
@@ -99,6 +43,23 @@ const appointmentComponent = (props) => {
   );
 };
 
+const resources = [
+  {
+    fieldName: "priorityId",
+    title: "Priority",
+    instances: [
+      { text: "Low Priority", id: 1, color: blue },
+      { text: "High Priority", id: 2, color: orange },
+    ],
+  },
+];
+const groupOrientation = (viewName) => viewName.split(" ")[0];
+const grouping = [
+  {
+    resourceName: "priorityId",
+  },
+];
+
 export default class WeeklyStudyPlan extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -111,13 +72,13 @@ export default class WeeklyStudyPlan extends React.PureComponent {
       editingAppointment: undefined,
     };
 
-    this.commitChanges = this.commitChanges.bind(this);
+    this.onCommitChanges = this.onCommitChanges.bind(this);
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
-  commitChanges({ added, changed, deleted }) {
+  onCommitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
       if (added) {
@@ -165,7 +126,7 @@ export default class WeeklyStudyPlan extends React.PureComponent {
         <Scheduler data={data} height={660}>
           <ViewState defaultCurrentDate={currentDate} />
           <EditingState
-            onCommitChanges={this.commitChanges}
+            onCommitChanges={this.onCommitChanges}
             addedAppointment={addedAppointment}
             onAddedAppointmentChange={this.changeAddedAppointment}
             appointmentChanges={appointmentChanges}
@@ -173,18 +134,44 @@ export default class WeeklyStudyPlan extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
+          <GroupingState
+            grouping={grouping}
+            groupOrientation={groupOrientation}
+          />
           <EditRecurrenceMenu />
-          <WeekView startDayHour={5} endDayHour={21} />
-          <Toolbar />
-          <DateNavigator />
-          <TodayButton />
+
+          <WeekView
+            startDayHour={9}
+            endDayHour={17}
+            excludedDays={[0, 6]}
+            cellDuration={60}
+            name="Vertical Orientation"
+          />
+          <WeekView
+            startDayHour={9}
+            endDayHour={17}
+            excludedDays={[0, 6]}
+            name="Horizontal Orientation"
+          />
+
           <Appointments appointmentComponent={appointmentComponent} />
-          <AllDayPanel />
+          <Resources data={resources} mainResourceName="priorityId" />
+
+          <IntegratedGrouping />
+          <IntegratedEditing />
+
           <EditRecurrenceMenu />
           <ConfirmationDialog />
           <Appointments />
+
           <AppointmentTooltip showOpenButton showDeleteButton />
-          <AppointmentForm fullSize={true} />
+          <AppointmentForm />
+
+          <GroupingPanel />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
+          <ViewSwitcher />
           <DragDropProvider allowDrag={allowDrag} />
         </Scheduler>
       </Paper>
