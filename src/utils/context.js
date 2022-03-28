@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "./firebaseConfig";
 import {
   createUserWithEmailAndPassword,
-  getAuth,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
 
 export const CourseContext = React.createContext(null);
 const AuthContext = React.createContext();
@@ -18,21 +18,9 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-  let navigate = useNavigate();
 
   function signup(email, password) {
-    console.log("Helllo");
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Logggged in!!!");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("EROOOOOR!");
-      });
+    return createUserWithEmailAndPassword(auth, email, password);
   }
 
   function login(email, password) {
@@ -44,7 +32,7 @@ export function AuthProvider({ children }) {
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email);
+    return sendPasswordResetEmail(email);
   }
 
   function updateEmail(email) {

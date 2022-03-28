@@ -32,8 +32,8 @@ function SignUp() {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate.push("/");
-    } catch {
+      navigate("/");
+    } catch (e) {
       setError("Failed to create an account");
     }
 
@@ -45,39 +45,43 @@ function SignUp() {
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group id="email">
-          <TextField
+          <Form.Control
             required
-            id="standard-disabled"
-            label="Email"
-            defaultValue=""
-            variant="standard"
-            sx={{ width: "25em" }}
+            type="email"
+            placeholder="Enter email"
+            style={{
+              width: "25em",
+              marginTop: "10em",
+              border: "0.5px solid gray",
+            }}
             ref={emailRef}
           />
         </Form.Group>
         <Form.Group id="password">
-          <TextField
+          <Form.Control
             required
-            id="standard-password-input"
-            label="Password"
             type="password"
-            defaultValue=""
-            variant="standard"
-            sx={{ width: "25em", marginTop: "1.3em" }}
+            placeholder="Password"
             ref={passwordRef}
-          />
+            style={{
+              width: "25em",
+              border: "0.5px solid gray",
+              marginTop: "1.3em",
+            }}
+          ></Form.Control>
         </Form.Group>
         <Form.Group id="password-confirm">
-          <TextField
+          <Form.Control
             required
-            id="standard-password-input"
-            label="Password Confirmation"
             type="password"
-            defaultValue=""
-            variant="standard"
-            sx={{ width: "25em", marginTop: "1.3em" }}
+            placeholder="Confirm Password"
             ref={passwordConfirmRef}
-          />
+            style={{
+              width: "25em",
+              border: "0.5px solid gray",
+              marginTop: "1.3em",
+            }}
+          ></Form.Control>
         </Form.Group>
         <Button disabled={loading} className="signup-button" type="submit">
           Sign Up
