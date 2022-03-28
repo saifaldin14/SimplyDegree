@@ -5,14 +5,6 @@ import SignIn from "./Screens/SignIn.js";
 import "./App.css";
 import Home from "./Screens/Home.js";
 import SignUp from "./Screens/SignUp.js";
-import firebase from "firebase/app";
-import "firebase/database";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { firebaseConfig } from "./utils/firebaseConfig";
-
-const firebaseApp = initializeApp(firebaseConfig);
-const fireabseAnalytics = getAnalytics(firebaseApp);
 
 function App() {
   return (
