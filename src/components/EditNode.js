@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
-import {collection, updateDoc} from 'firebase/firestore';
+import { collection, updateDoc, doc } from "firebase/firestore";
 
 const { db } = require("../utils/firebaseConfig");
 
@@ -26,12 +26,12 @@ export default function EditNode({ node }) {
   async function editCourse(e) {
     console.log(courseName, " ", courseCode);
     e.preventDefault();
-    const docRef = await updateDoc(collection(db, "courses"), {
+    const docRef = await updateDoc(doc(db, "courses", node.data.label), {
       course_name: courseName,
       course_code: courseCode,
       course_desc: courseDescription,
     });
-  };
+  }
   return (
     <Card sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">

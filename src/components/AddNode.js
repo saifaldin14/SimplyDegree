@@ -3,7 +3,7 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const { db } = require("../utils/firebaseConfig");
 
@@ -44,7 +44,7 @@ export default function AddNode() {
     //   course_code: courseCode,
     //   course_desc: courseDescription,
     // });
-    const docRef = await addDoc(collection(db, "courses"), {
+    const docRef = await setDoc(doc(db, "courses", courseCode), {
       course_name: courseName,
       course_code: courseCode,
       course_desc: courseDescription,
