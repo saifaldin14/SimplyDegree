@@ -27,8 +27,7 @@ const Node = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // const onElementsRemove = (elementsToRemove) =>
-  //   setElements((els) => removeElements(elementsToRemove, els));
+
   const [gNodes, setGNodes, onNodesChange] = useNodesState(nodes);
   const [gEdges, setGEdges, onEdgesChange] = useEdgesState(edges);
   const onConnect = (params) => setGEdges((eds) => addEdge(params, eds));
@@ -36,19 +35,6 @@ const Node = () => {
   useEffect(() => {
     setGNodes(nodes);
   }, [nodes]);
-  const addNode = () => {
-    // setElements((e) =>
-    //   e.concat({
-    //     id: (e.length + 1).toString(),
-    //     data: { label: `${name}` },
-    //     position: {
-    //       x: Math.random() * window.innerWidth,
-    //       y: Math.random() * window.innerHeight,
-    //     },
-    //   })
-    // );
-    console.log("Hi");
-  };
 
   const onNodeDoubleClick = (event, node) => {
     handleOpen();
@@ -69,10 +55,6 @@ const Node = () => {
         connectionLineType="bezier"
         snapToGrid={true}
         snapGrid={[16, 16]}
-        // onElementsRemove={onElementsRemove}
-        // onNodeMouseEnter={onNodeMouseEnter}
-        // onNodeMouseMove={onNodeMouseMove}
-        // onNodeMouseLeave={onNodeMouseLeave}
         onNodeDoubleClick={onNodeDoubleClick}
         onNodeContextMenu={onNodeContextMenu}
       >
