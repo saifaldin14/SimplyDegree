@@ -6,6 +6,19 @@
   /* margin-top: 3rem; */
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 60px;
+}
+
+#main-container {
+  min-height: calc(100vh - 34px);
+  width: 100%;
+  height: 100%;
+}
+
+#footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
 }
 
 .logout-button {

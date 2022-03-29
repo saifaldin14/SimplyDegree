@@ -29,7 +29,7 @@ export default function AddNode() {
     setNodes((e) =>
       e.concat({
         id: `horizontal-${e.length + 1}`,
-        data: { label: `${courseName}` },
+        data: { label: `${courseCode}` },
         sourcePosition: "right",
         targetPosition: "left",
         position: {

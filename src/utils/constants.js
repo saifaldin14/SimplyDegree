@@ -78,7 +78,7 @@ export const initialEdges = [
     source: "horizontal-2",
     type: "smoothstep",
     target: "horizontal-4",
-    label: "edge label",
+    label: "taken together",
   },
   {
     id: "horizontal-e3-5",
