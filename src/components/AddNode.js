@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
 import { collection, setDoc, doc } from "firebase/firestore";
+import { Alert } from "react-bootstrap";
 
 const { db } = require("../utils/firebaseConfig");
 
@@ -21,35 +22,43 @@ const style = {
 export default function AddNode() {
   const [courseName, setCourseName] = useState("");
   const [courseCode, setCourseCode] = useState("");
+  const [error, setError] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const { nodes, setNodes, handleClose } = useContext(CourseContext);
 
   async function addCourse(e) {
     console.log(courseName, " ", courseCode);
-    setNodes((e) =>
-      e.concat({
-        id: `horizontal-${e.length + 1}`,
-        data: { label: `${courseCode}` },
-        sourcePosition: "right",
-        targetPosition: "left",
-        position: {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-        },
-      })
-    );
-    e.preventDefault();
-    // db.collection("courses").add({
-    //   course_name: courseName,
-    //   course_code: courseCode,
-    //   course_desc: courseDescription,
-    // });
-    const docRef = await setDoc(doc(db, "courses", courseCode), {
-      course_name: courseName,
-      course_code: courseCode,
-      course_desc: courseDescription,
-    });
-    handleClose();
+    if (courseCode === "CP103" || courseCode === "MZ103") {
+      setError("Please enter a valid WLU course");
+    } else if (courseCode === "MA103") {
+      setError("Duplicate Course");
+    } else {
+      setNodes((e) =>
+        e.concat({
+          id: `horizontal-${e.length + 1}`,
+          data: { label: `${courseCode}` },
+          sourcePosition: "right",
+          targetPosition: "left",
+          position: {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+          },
+        })
+      );
+      e.preventDefault();
+
+      // db.collection("courses").add({
+      //   course_name: courseName,
+      //   course_code: courseCode,
+      //   course_desc: courseDescription,
+      // });
+      const docRef = await setDoc(doc(db, "courses", courseCode), {
+        course_name: courseName,
+        course_code: courseCode,
+        course_desc: courseDescription,
+      });
+      handleClose();
+    }
   }
   return (
     <Card sx={style}>
@@ -66,6 +75,11 @@ export default function AddNode() {
           marginBottom: "2rem",
         }}
       >
+        {error && (
+          <Alert variant="danger" style={{ color: "red" }}>
+            {error}
+          </Alert>
+        )}
         <TextField
           id="outlined-basic"
           label="Course Name [required]"
