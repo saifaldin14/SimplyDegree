@@ -50,8 +50,6 @@ const Home = () => {
     async function fetchData() {
       const docSnap = await getDocs(collection(db, "courses"));
       docSnap.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-        const data = doc.data();
         setNodes((e) =>
           e.concat({
             id: doc.id,
