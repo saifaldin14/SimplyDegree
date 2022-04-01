@@ -3,7 +3,7 @@ import { Card, Typography, TextField, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
-import { collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { Alert } from "react-bootstrap";
 
 const { db } = require("../utils/firebaseConfig");

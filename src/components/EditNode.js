@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Card, Typography, TextField, Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
-import { collection, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
 const { db } = require("../utils/firebaseConfig");
 
@@ -26,7 +25,7 @@ export default function EditNode({ node }) {
   async function editCourse(e) {
     console.log(courseName, " ", courseCode);
     e.preventDefault();
-    const docRef = await updateDoc(doc(db, "courses", node.data.label), {
+    await updateDoc(doc(db, "courses", node.data.label), {
       course_name: courseName,
       course_code: courseCode,
       course_desc: courseDescription,

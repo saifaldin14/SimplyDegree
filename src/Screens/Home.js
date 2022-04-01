@@ -19,7 +19,9 @@ import { CourseContext } from "../utils/context";
 import { initialNodes, initialEdges } from "../utils/constants";
 import Footer from "../components/Footer";
 import { useAuth } from "../utils/context";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getDocs, query, collection } from "firebase/firestore";
+const { db } = require("../utils/firebaseConfig");
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -39,10 +41,34 @@ const Home = () => {
   const [expandedWeek, setExpandedWeek] = React.useState(false);
   const [expandedMonth, setExpandedMonth] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [nodes, setNodes] = React.useState(initialNodes);
-  const [edges, setEdges] = React.useState(initialEdges);
+  const [nodes, setNodes] = React.useState([]);
+  const [edges, setEdges] = React.useState([]);
   const [error, setError] = React.useState("");
   const { currentUser, logout } = useAuth();
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const docSnap = await getDocs(collection(db, "courses"));
+      docSnap.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        const data = doc.data();
+        setNodes((e) =>
+          e.concat({
+            id: doc.id,
+            data: { label: doc.id },
+            sourcePosition: "right",
+            targetPosition: "left",
+            position: {
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            },
+          })
+        );
+      });
+    }
+
+    fetchData();
+  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
