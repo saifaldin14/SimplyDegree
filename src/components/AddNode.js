@@ -35,7 +35,7 @@ export default function AddNode() {
     } else {
       setNodes((e) =>
         e.concat({
-          id: `horizontal-${e.length + 1}`,
+          id: courseCode,
           data: { label: `${courseCode}` },
           sourcePosition: "right",
           targetPosition: "left",
@@ -47,12 +47,7 @@ export default function AddNode() {
       );
       e.preventDefault();
 
-      // db.collection("courses").add({
-      //   course_name: courseName,
-      //   course_code: courseCode,
-      //   course_desc: courseDescription,
-      // });
-      const docRef = await setDoc(doc(db, "courses", courseCode), {
+      await setDoc(doc(db, "courses", courseCode), {
         course_name: courseName,
         course_code: courseCode,
         course_desc: courseDescription,
