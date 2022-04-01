@@ -11,6 +11,7 @@ import Modal from "@mui/material/Modal";
 import EditNode from "./EditNode";
 import AddNode from "./AddNode";
 import { CourseContext } from "../utils/context";
+import { setDoc, doc } from "firebase/firestore";
 
 const onLoad = (reactFlowInstance) => {
   reactFlowInstance.fitView();
@@ -30,7 +31,10 @@ const Node = () => {
 
   const [gNodes, setGNodes, onNodesChange] = useNodesState(nodes);
   const [gEdges, setGEdges, onEdgesChange] = useEdgesState(edges);
-  const onConnect = (params) => setGEdges((eds) => addEdge(params, eds));
+  const onConnect = (params) => {
+    console.log(`Edge: ${JSON.stringify(params)}`);
+    setGEdges((eds) => addEdge(params, eds));
+  };
 
   useEffect(() => {
     setGNodes(nodes);
