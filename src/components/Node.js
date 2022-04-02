@@ -49,7 +49,6 @@ const Node = () => {
 
   useEffect(() => {
     edges.forEach((e) => {
-      console.log(e);
       setGEdges((eds) =>
         addEdge(
           {

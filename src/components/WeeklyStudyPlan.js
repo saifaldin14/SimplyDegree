@@ -81,25 +81,31 @@ export default class WeeklyStudyPlan extends React.PureComponent {
       editingAppointment: undefined,
     };
 
+    this.fetchData = this.fetchData.bind(this);
     this.onCommitChanges = this.onCommitChanges.bind(this);
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  async fetchData() {
     const fetchedCourses = await getDocs(collection(db, "week"));
     fetchedCourses.forEach((doc) => {
       this.setState({
         data: [
-          ...this.state.data,
-          {
-            id: doc.id,
-            ...doc.data(),
-          },
+          ...new Set([
+            ...this.state.data,
+            {
+              id: doc.id,
+              ...doc.data(),
+            },
+          ]),
         ],
       });
-      console.log(this.state.data);
     });
   }
 
@@ -142,8 +148,12 @@ export default class WeeklyStudyPlan extends React.PureComponent {
         data = data.filter((appointment) => appointment.id !== deleted);
         await deleteDoc(doc(db, "week", deleted));
       }
+      data.forEach((e) => {
+        console.log(JSON.stringify(e));
+      });
       return { data };
     });
+    // this.fetchData();
   }
 
   changeAddedAppointment(addedAppointment) {
