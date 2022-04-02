@@ -109,51 +109,56 @@ export default class WeeklyStudyPlan extends React.PureComponent {
     });
   }
 
-  onCommitChanges({ added, changed, deleted }) {
-    this.setState(async (state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-        const sDate = added.startDate,
-          eDate = added.endDate;
-        added.startDate = sDate.toString();
-        added.endDate = eDate.toString();
-        await setDoc(doc(db, "week", startingAddedId), {
-          ...added,
-        });
-      }
-      if (changed) {
-        data = data.map(async (appointment) => {
-          if (changed[appointment.id]) {
-            const sDate = changed[appointment.id].startDate,
-              eDate = changed[appointment.id].endDate;
-            if (sDate !== undefined) {
-              changed[appointment.id].startDate = sDate.toString();
-            }
-
-            if (eDate !== undefined) {
-              changed[appointment.id].endDate = eDate.toString();
-            }
-            await updateDoc(doc(db, "week", appointment.id), {
-              ...appointment,
-              ...changed[appointment.id],
-            });
-            appointment = { ...appointment, ...changed[appointment.id] };
-          }
-        });
-      }
-      if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
-        await deleteDoc(doc(db, "week", deleted));
-      }
-      data.forEach((e) => {
-        console.log(JSON.stringify(e));
+  async onCommitChanges({ added, changed, deleted }) {
+    let { data } = this.state;
+    if (added) {
+      const startingAddedId =
+        data.length > 0 ? data[data.length - 1].id + 1 : 0;
+      // data = [...data, { id: startingAddedId, ...added }];
+      const sDate = added.startDate,
+        eDate = added.endDate;
+      added.startDate = sDate.toString();
+      added.endDate = eDate.toString();
+      await setDoc(doc(db, "week", startingAddedId), {
+        ...added,
       });
-      return { data };
-    });
+      added.startDate = sDate;
+      added.endDate = eDate;
+      data = [...data, { id: startingAddedId, ...added }];
+    }
+    if (changed) {
+      data.map(async (appointment) => {
+        if (changed[appointment.id]) {
+          const sDate = changed[appointment.id].startDate,
+            eDate = changed[appointment.id].endDate;
+          if (sDate !== undefined) {
+            changed[appointment.id].startDate = sDate.toString();
+          }
+
+          if (eDate !== undefined) {
+            changed[appointment.id].endDate = eDate.toString();
+          }
+          await updateDoc(doc(db, "week", appointment.id), {
+            ...appointment,
+            ...changed[appointment.id],
+          });
+          // appointment = { ...appointment, ...changed[appointment.id] };
+        }
+      });
+
+      data = data.map((appointment) =>
+        changed[appointment.id]
+          ? { ...appointment, ...changed[appointment.id] }
+          : appointment
+      );
+    }
+    if (deleted !== undefined) {
+      // data = data.filter((appointment) => appointment.id !== deleted);
+      await deleteDoc(doc(db, "week", deleted));
+      data = data.filter((appointment) => appointment.id !== deleted);
+    }
     // this.fetchData();
+    this.setState({ data });
   }
 
   changeAddedAppointment(addedAppointment) {
