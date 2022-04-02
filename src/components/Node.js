@@ -47,6 +47,23 @@ const Node = () => {
     setGNodes(nodes);
   }, [nodes]);
 
+  useEffect(() => {
+    edges.forEach((e) => {
+      console.log(e);
+      setGEdges((eds) =>
+        addEdge(
+          {
+            source: e.source,
+            sourceHandler: null,
+            target: e.target,
+            targetHandler: null,
+          },
+          eds
+        )
+      );
+    });
+  }, [edges]);
+
   const onNodeDoubleClick = (event, node) => {
     handleOpen();
     setOpenedNode(node);

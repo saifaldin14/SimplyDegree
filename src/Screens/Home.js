@@ -20,7 +20,7 @@ import { initialNodes, initialEdges } from "../utils/constants";
 import Footer from "../components/Footer";
 import { useAuth } from "../utils/context";
 import { useNavigate } from "react-router-dom";
-import { getDocs, query, collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 const { db } = require("../utils/firebaseConfig");
 
 const ExpandMore = styled((props) => {
@@ -48,10 +48,10 @@ const Home = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      const docSnap = await getDocs(collection(db, "courses"));
+      const fetchedCourses = await getDocs(collection(db, "courses"));
       let counterX = 0,
         counterY = 0;
-      docSnap.forEach((doc) => {
+      fetchedCourses.forEach((doc) => {
         counterX += 1;
 
         if (counterX === 3) {
@@ -71,9 +71,23 @@ const Home = () => {
           })
         );
       });
+
+      const fetchedEdges = await getDocs(collection(db, "edges"));
+      fetchedEdges.forEach((doc) => {
+        setEdges((e) =>
+          e.concat({
+            id: doc.id,
+            source: doc.data().source,
+            target: doc.data().target,
+            type: "smoothstep",
+            animated: true,
+          })
+        );
+      });
     }
 
     fetchData();
+    console.log(edges);
   }, []);
 
   const handleOpen = () => setOpen(true);
