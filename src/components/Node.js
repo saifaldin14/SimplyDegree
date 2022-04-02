@@ -12,6 +12,7 @@ import EditNode from "./EditNode";
 import AddNode from "./AddNode";
 import { CourseContext } from "../utils/context";
 import { setDoc, doc } from "firebase/firestore";
+const { db } = require("../utils/firebaseConfig");
 
 const onLoad = (reactFlowInstance) => {
   reactFlowInstance.fitView();
@@ -31,9 +32,15 @@ const Node = () => {
 
   const [gNodes, setGNodes, onNodesChange] = useNodesState(nodes);
   const [gEdges, setGEdges, onEdgesChange] = useEdgesState(edges);
-  const onConnect = (params) => {
+  const onConnect = async (params) => {
     console.log(`Edge: ${JSON.stringify(params)}`);
     setGEdges((eds) => addEdge(params, eds));
+    await setDoc(doc(db, "edges", `${params.source}-${params.target}`), {
+      source: params.source,
+      sourceHandle: null,
+      target: params.target,
+      targetHandle: null,
+    });
   };
 
   useEffect(() => {
