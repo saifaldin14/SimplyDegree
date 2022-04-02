@@ -16,73 +16,15 @@ import {
   DateNavigator,
   TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
-
-const recurrenceAppointments = [
-  {
-    title: "Finish CP317 Design Document",
-    startDate: new Date("March 20, 2022 09:15:00"),
-    endDate: new Date("March 20, 2022 012:15:00"),
-    id: 100,
-    rRule: "FREQ=DAILY;COUNT=3",
-  },
-  {
-    title: "Eat Healthy",
-    startDate: new Date("March 21, 2022 012:15:00"),
-    endDate: new Date("March 21, 2022 016:15:00"),
-    id: 101,
-    rRule: "FREQ=DAILY;COUNT=4",
-    allDay: true,
-  },
-  {
-    title: "Study for CP363",
-    startDate: new Date("March 23, 2022 013:15:00"),
-    endDate: new Date("March 23, 2022 014:35:00"),
-    id: 102,
-    rRule: "FREQ=DAILY;COUNT=5",
-  },
-  {
-    title: "Finish BU121 Assignment",
-    startDate: new Date("March 24, 2022 10:00:00"),
-    endDate: new Date("March 24, 2022 11:00:00"),
-    id: 3,
-    location: "Room 2",
-  },
-  {
-    title: "Study for CP317",
-    startDate: new Date("March 25, 2022 11:45:00"),
-    endDate: new Date("March 25, 2022 013:20:00"),
-    id: 4,
-    location: "Room 2",
-  },
-  {
-    title: "Study CP363",
-    startDate: new Date("March 25, 2022 14:40:00"),
-    endDate: new Date("March 25, 2022 15:45:00"),
-    id: 5,
-    location: "Room 2",
-  },
-  {
-    title: "Read Java Book",
-    startDate: new Date("March 26, 2022 09:45:00"),
-    endDate: new Date("March 26, 2022 011:15:00"),
-    id: 6,
-    location: "Room 1",
-  },
-  {
-    title: "Study BU121",
-    startDate: new Date("March 26, 2022 11:45:00"),
-    endDate: new Date("March 26, 2022 013:05:00"),
-    id: 7,
-    location: "Room 3",
-  },
-  {
-    title: "Work on CP363",
-    startDate: new Date("March 26, 2022 10:00:00"),
-    endDate: new Date("March 26, 2022 011:30:00"),
-    id: 12,
-    location: "Room 2",
-  },
-];
+import {
+  getDocs,
+  collection,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+const { db } = require("../utils/firebaseConfig");
 
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
@@ -104,39 +46,91 @@ export default class MonthlyCalendar extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: recurrenceAppointments,
+      data: [],
       currentDate: new Date("2022-03-25"),
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
     };
 
+    this.fetchData = this.fetchData.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
-  commitChanges({ added, changed, deleted }) {
-    this.setState((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map((appointment) =>
-          changed[appointment.id]
-            ? { ...appointment, ...changed[appointment.id] }
-            : appointment
-        );
-      }
-      if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
-      }
-      return { data };
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  async fetchData() {
+    const fetchedCourses = await getDocs(collection(db, "month"));
+    fetchedCourses.forEach((doc) => {
+      this.setState({
+        data: [
+          ...new Set([
+            ...this.state.data,
+            {
+              id: doc.id,
+              ...doc.data(),
+            },
+          ]),
+        ],
+      });
     });
+  }
+
+  async commitChanges({ added, changed, deleted }) {
+    let { data } = this.state;
+    if (added) {
+      const startingAddedId =
+        data.length > 0 ? data[data.length - 1].id + 1 : 0;
+      // data = [...data, { id: startingAddedId, ...added }];
+      const sDate = added.startDate,
+        eDate = added.endDate;
+      added.startDate = sDate.toString();
+      added.endDate = eDate.toString();
+      await setDoc(doc(db, "month", startingAddedId), {
+        ...added,
+      });
+      added.startDate = sDate;
+      added.endDate = eDate;
+      data = [...data, { id: startingAddedId, ...added }];
+    }
+    if (changed) {
+      data.map(async (appointment) => {
+        if (changed[appointment.id]) {
+          const sDate = changed[appointment.id].startDate,
+            eDate = changed[appointment.id].endDate;
+          if (sDate !== undefined) {
+            changed[appointment.id].startDate = sDate.toString();
+          }
+
+          if (eDate !== undefined) {
+            changed[appointment.id].endDate = eDate.toString();
+          }
+          await updateDoc(doc(db, "month", appointment.id), {
+            ...appointment,
+            ...changed[appointment.id],
+          });
+          // appointment = { ...appointment, ...changed[appointment.id] };
+        }
+      });
+
+      data = data.map((appointment) =>
+        changed[appointment.id]
+          ? { ...appointment, ...changed[appointment.id] }
+          : appointment
+      );
+    }
+    if (deleted !== undefined) {
+      // data = data.filter((appointment) => appointment.id !== deleted);
+      await deleteDoc(doc(db, "month", deleted));
+      data = data.filter((appointment) => appointment.id !== deleted);
+    }
+    // this.fetchData();
+    this.setState({ data });
   }
 
   changeAddedAppointment(addedAppointment) {
