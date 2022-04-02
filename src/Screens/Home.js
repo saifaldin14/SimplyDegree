@@ -49,7 +49,15 @@ const Home = () => {
   React.useEffect(() => {
     async function fetchData() {
       const docSnap = await getDocs(collection(db, "courses"));
+      let counterX = 0,
+        counterY = 0;
       docSnap.forEach((doc) => {
+        counterX += 1;
+
+        if (counterX === 3) {
+          counterX = 0;
+          counterY += 1;
+        }
         setNodes((e) =>
           e.concat({
             id: doc.id,
@@ -57,8 +65,8 @@ const Home = () => {
             sourcePosition: "right",
             targetPosition: "left",
             position: {
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: 500 + 200 * counterX,
+              y: 100 + 100 * counterY,
             },
           })
         );
