@@ -14,7 +14,6 @@ import {
   Appointments,
   DragDropProvider,
   EditRecurrenceMenu,
-  AllDayPanel,
   AppointmentForm,
   ConfirmationDialog,
   AppointmentTooltip,
@@ -27,6 +26,16 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { blue, orange } from "@mui/material/colors";
 import { recurrenceAppointments } from "../utils/constants";
+import {
+  getDocs,
+  collection,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+
+const { db } = require("../utils/firebaseConfig");
 
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
@@ -65,7 +74,7 @@ export default class WeeklyStudyPlan extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: recurrenceAppointments,
+      data: [],
       currentDate: new Date("2022-03-25"),
       addedAppointment: {},
       appointmentChanges: {},
@@ -78,23 +87,60 @@ export default class WeeklyStudyPlan extends React.PureComponent {
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
+  async componentDidMount() {
+    const fetchedCourses = await getDocs(collection(db, "week"));
+    fetchedCourses.forEach((doc) => {
+      this.setState({
+        data: [
+          ...this.state.data,
+          {
+            id: doc.id,
+            ...doc.data(),
+          },
+        ],
+      });
+      console.log(this.state.data);
+    });
+  }
+
   onCommitChanges({ added, changed, deleted }) {
-    this.setState((state) => {
+    this.setState(async (state) => {
       let { data } = state;
       if (added) {
         const startingAddedId =
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
+        const sDate = added.startDate,
+          eDate = added.endDate;
+        added.startDate = sDate.toString();
+        added.endDate = eDate.toString();
+        await setDoc(doc(db, "week", startingAddedId), {
+          ...added,
+        });
       }
       if (changed) {
-        data = data.map((appointment) =>
-          changed[appointment.id]
-            ? { ...appointment, ...changed[appointment.id] }
-            : appointment
-        );
+        data = data.map(async (appointment) => {
+          if (changed[appointment.id]) {
+            const sDate = changed[appointment.id].startDate,
+              eDate = changed[appointment.id].endDate;
+            if (sDate !== undefined) {
+              changed[appointment.id].startDate = sDate.toString();
+            }
+
+            if (eDate !== undefined) {
+              changed[appointment.id].endDate = eDate.toString();
+            }
+            await updateDoc(doc(db, "week", appointment.id), {
+              ...appointment,
+              ...changed[appointment.id],
+            });
+            appointment = { ...appointment, ...changed[appointment.id] };
+          }
+        });
       }
       if (deleted !== undefined) {
         data = data.filter((appointment) => appointment.id !== deleted);
+        await deleteDoc(doc(db, "week", deleted));
       }
       return { data };
     });

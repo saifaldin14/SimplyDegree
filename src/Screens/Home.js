@@ -87,7 +87,6 @@ const Home = () => {
     }
 
     fetchData();
-    console.log(edges);
   }, []);
 
   const handleOpen = () => setOpen(true);
