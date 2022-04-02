@@ -25,7 +25,7 @@ const onNodeContextMenu = (event, node) => {
 const Node = () => {
   const [open, setOpen] = useState(false);
   const [openedNode, setOpenedNode] = useState({});
-  const { nodes, setNodes, edges, setEdges } = useContext(CourseContext);
+  const { nodes, edges } = useContext(CourseContext);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
