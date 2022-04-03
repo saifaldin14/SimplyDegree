@@ -64,7 +64,8 @@ function SignIn() {
           ></Form.Control>
         </Form.Group>
         <Button disabled={loading} className="login-button" type="submit">
-          Log In
+          <h1>Log In</h1>
+          
         </Button>
       </Form>
       <h1>

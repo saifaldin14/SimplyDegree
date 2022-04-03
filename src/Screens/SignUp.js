@@ -82,7 +82,8 @@ function SignUp() {
           ></Form.Control>
         </Form.Group>
         <Button disabled={loading} className="signup-button" type="submit">
-          Sign Up
+          <h1>Sign Up</h1>
+          
         </Button>
       </Form>
       <div className="w-100 text-center mt-2">
