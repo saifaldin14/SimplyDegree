@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
-import { TextField, MenuItem } from "@mui/material";
 import "./SignUp.css";
-import { useForm, Controller } from "react-hook-form";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../utils/context";
 import { Link, useNavigate } from "react-router-dom";
 
