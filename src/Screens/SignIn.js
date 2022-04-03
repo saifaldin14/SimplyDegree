@@ -3,10 +3,9 @@ import "./SignIn.css";
 import StudentDesk from "../assets/signIn/studentsatdesk.svg";
 import StudentBook from "../assets/signIn/studentonbook.svg";
 import MainLogo from "../assets/signIn/mainlogo.svg";
-import { TextField } from "@mui/material";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../utils/context";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 function SignIn() {
   let navigate = useNavigate();
