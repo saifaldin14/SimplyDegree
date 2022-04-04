@@ -5,6 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { CourseContext } from "../utils/context";
 import { setDoc, doc } from "firebase/firestore";
 import { Alert } from "react-bootstrap";
+import axios from "axios";
 
 const { db } = require("../utils/firebaseConfig");
 
@@ -28,6 +29,10 @@ export default function AddNode() {
 
   async function addCourse(e) {
     console.log(courseName, " ", courseCode);
+    const value = await axios.get(
+      `https://simply-degree.herokuapp.com/courses/${courseCode}`
+    );
+    console.log(value);
     if (courseCode === "CP103" || courseCode === "MZ103") {
       setError("Please enter a valid WLU course");
     } else if (courseCode === "MA103") {
