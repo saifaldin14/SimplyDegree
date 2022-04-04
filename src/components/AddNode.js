@@ -29,35 +29,36 @@ export default function AddNode() {
 
   async function addCourse(e) {
     console.log(courseName, " ", courseCode);
-    const value = await axios.get(
-      `https://simply-degree.herokuapp.com/courses/${courseCode}`
-    );
-    console.log(value);
-    if (courseCode === "CP103" || courseCode === "MZ103") {
-      setError("Please enter a valid WLU course");
-    } else if (courseCode === "MA103") {
-      setError("Duplicate Course");
-    } else {
-      setNodes((e) =>
-        e.concat({
-          id: courseCode,
-          data: { label: `${courseCode}` },
-          sourcePosition: "right",
-          targetPosition: "left",
-          position: {
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-          },
-        })
+    try {
+      await axios.get(
+        `https://simply-degree.herokuapp.com/courses/${courseCode}`
       );
-      e.preventDefault();
+      if (nodes.some((el) => el.id === courseCode)) {
+        setError("Duplicate Course");
+      } else {
+        setNodes((e) =>
+          e.concat({
+            id: courseCode,
+            data: { label: `${courseCode}` },
+            sourcePosition: "right",
+            targetPosition: "left",
+            position: {
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            },
+          })
+        );
+        e.preventDefault();
 
-      await setDoc(doc(db, "courses", courseCode), {
-        course_name: courseName,
-        course_code: courseCode,
-        course_desc: courseDescription,
-      });
-      handleClose();
+        await setDoc(doc(db, "courses", courseCode), {
+          course_name: courseName,
+          course_code: courseCode,
+          course_desc: courseDescription,
+        });
+        handleClose();
+      }
+    } catch (e) {
+      setError("Please enter a valid WLU course");
     }
   }
   return (
