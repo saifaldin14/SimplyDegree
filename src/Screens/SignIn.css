@@ -1,74 +1,90 @@
 .logo {
-    margin-top: 5em;
-    margin-bottom: 3.4em;
+  margin-top: 5em;
+  margin-bottom: 3.4em;
 }
 
 .student {
-    height: 10rem;
+  height: 10rem;
 }
 
 .graphics {
-    width: 40em;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 2em;
+  width: 40em;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-button {
-    margin-top: 0.8em;
-    height: 5rem;
-    background-color: black;
-    color: white;
-    width: 10rem;
-    border-radius: 30px;
-    font-size: 2rem;
-    align-self: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.8em;
+  height: 5rem;
+  background-color: black;
+  color: white;
+  width: 10rem;
+  border-radius: 30px;
+  font-size: 2rem;
+  align-self: auto;
 }
 
 .login-button h1 {
-    text-align: center;
-    position: relative;
-    top: 25%;
-    transform: translateY(-55%);
-    background: linear-gradient(to right, rgb(255, 255, 255) 50%, #c1f2f8 70%, #3a87fa);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: 0.5s ease-out;
+  text-align: center;
+  position: relative;
+  top: 25%;
+  transform: translateY(-55%);
+  background: linear-gradient(
+    to right,
+    rgb(255, 255, 255) 50%,
+    #c1f2f8 70%,
+    #3a87fa
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease-out;
 }
 
 .login-button h1:hover {
-    background-position: -100%;
+  background-position: -100%;
 }
 
 .login-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .sign-up {
-    color: blue;
-    text-decoration: underline;
+  color: blue;
+  text-decoration: underline;
 }
 
 .signup:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
-    .logo {
-        height: 3em;
-    }
-    .student {
-        height: 8em;
-    }
-    .graphics {
-        width: 400px;
-        margin-bottom: 100px;
-    }
-    .login-button {
-        height: 70px;
-        font-size: 1.7em;
-        width: 150px;
-    }
+  .logo {
+    height: 3em;
+  }
+  .student {
+    height: 8em;
+  }
+  .graphics {
+    width: 400px;
+    margin-bottom: 100px;
+  }
+  .login-button {
+    height: 70px;
+    font-size: 1.7em;
+    width: 150px;
+  }
 }

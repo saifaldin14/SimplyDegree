@@ -5,7 +5,7 @@ import StudentBook from "../assets/signIn/studentonbook.svg";
 import MainLogo from "../assets/signIn/mainlogo.svg";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../utils/context";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   let navigate = useNavigate();
@@ -39,7 +39,7 @@ function SignIn() {
         <img src={StudentBook} alt="student-book" className="student" />
       </div>
       {error && <Alert variant="danger">{error}</Alert>}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="form">
         <Form.Group id="email" className="mb-3">
           <Form.Control
             required
@@ -64,7 +64,6 @@ function SignIn() {
         </Form.Group>
         <Button disabled={loading} className="login-button" type="submit">
           <h1>Log In</h1>
-          
         </Button>
       </Form>
       <h1>
