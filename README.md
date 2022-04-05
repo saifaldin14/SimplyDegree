@@ -11,16 +11,29 @@ Simply Degree is a website and the easiest way to use the application is through
 ## Project URL
 https://simplydegree.web.app/
 
-The following instructions assume you already have forked or otherwise copied the files in this repository to your local machine.
-## backend.js
-First, install [Node.js](https://nodejs.org/en/).
+## Running a local instance of the project
 
-Afterwards, in a command prompt navigate to the simplydegree-api folder and run `npm install` which will automatically install all dependencies listed in the package.json file.
+If you don't wish to run the project using the published URL and instead want to run the project in localhost the following instructions assume you already have forked or otherwise copied the files in this repository to your local machine.
 
-A LOGIN environment variable in the format `LOGIN="username:password"` is needed to be set with the login details for the MongoDB database.
+1. First, install [Node.js](https://nodejs.org/en/).
 
-Prof. Zia Ud Din: a .env file with this variable will be in our submission. Please put this in the Backend directory if you wish to run the program locally.
+2. Afterwards, in a command prompt navigate to the SimplyDegree-main folder and then navigate to the frontend folder using `cd frontend` 
+3. Run `npm install` which will automatically install all dependencies listed in the package.json file.
+4. Finally run the command `npm start` to run the project locally. 
 
-Anyone else: you will need to modify backend.js to use your own MongoDB database by changing the `uri` constant accordingly.
+The project should run in port 3000, however if it's already in use the command prompt will allow you to run the project in another prompt.
 
-If no other port is specified in the PORT env variable, the default port is 3000.
+# Completed Features
+The following are the completed features of the application
+* Sign-up/login authentication flow
+* Saving data to the database for data persistence
+* API to validate courses (to see if they actually exist in WLU) and to prevent duplicate courses
+* Course Graph view visible and editabble (you can move courses and links around)
+* Add, delete and edit Course
+* Linking Courses
+* Weekly Study Plan view visible and editabble (you can move events around)
+* Add, delete and edit events
+* Graphically edit events by drag and drop
+* Monthly Calendar view visible and editabble (you can move tasks around)
+* Add, delete and edit tasks
+* Graphically edit tasks by drag and drop
