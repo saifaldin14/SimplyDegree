@@ -9,7 +9,7 @@ In short, Simply Degree allows for students to effortlessly manage their degree 
 Simply Degree is a website and the easiest way to use the application is through the URL.
 
 ## Project URL
-https://simplydegree.web.app/
+https://simplydegree.web.app/login
 
 ## Running a local instance of the project
 
