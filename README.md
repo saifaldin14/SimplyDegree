@@ -5,8 +5,11 @@ Simply Degree also comes with a set of tools to allow for simple planning such a
 In short, Simply Degree allows for students to effortlessly manage their degree planning and build better study habits by providing a graphical interface from which they can design their semester the way they want.
   
 
-# How to install and run
-Prof. Zia Ud Din: our project will be hosted on the internet, and this is the simplest way to test the running capabilities of our application. Running locally requires reconfiguration that may take more time to get working, so we recommend using our hosted website, but if you wish to locally install details are provided below
+# Project Demo
+Simply Degree is a website and the easiest way to use the application is through the URL.
+
+## Project URL
+https://simplydegree.web.app/
 
 The following instructions assume you already have forked or otherwise copied the files in this repository to your local machine.
 ## backend.js
